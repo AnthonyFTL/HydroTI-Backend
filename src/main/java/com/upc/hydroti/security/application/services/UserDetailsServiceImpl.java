@@ -29,7 +29,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 () -> new UsernameNotFoundException(String.format("Given user (%s) not found.", query.trim())));
 
         return User.builder()
-                .username(userEntity.getId().toString())
+                .username(userEntity.getId())
                 .password(userEntity.getPassword())
                 .authorities(emptyList())
                 .build();

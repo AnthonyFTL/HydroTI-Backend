@@ -5,6 +5,7 @@ import com.upc.hydroti.security.application.dto.SignInRequest;
 import com.upc.hydroti.security.application.dto.SignInResponse;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.Key;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -60,6 +62,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     public void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain,
                                          Authentication auth) throws IOException {
         User principal = (User) auth.getPrincipal();
+        Key key = Keys.hmacShaKeyFor(SECRET.getBytes());
         Map<String, Object> claims = Map.of(ROLE_CLAIM,
                 principal.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
 
@@ -68,7 +71,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                 .setSubject(principal.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(SignatureAlgorithm.HS512, SECRET)
+                .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
 
         SignInResponse signInResponse = new SignInResponse(principal.getUsername(), token);

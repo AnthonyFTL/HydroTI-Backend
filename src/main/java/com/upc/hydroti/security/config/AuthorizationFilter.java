@@ -46,22 +46,20 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
     }
 
     private Optional<UsernamePasswordAuthenticationToken> getAuthentication(HttpServletRequest request) {
+        String token = request.getHeader(AUTHORIZATION).substring(7);
+        Claims claims = Jwts.parserBuilder().setSigningKey(SECRET.getBytes()).build().parseClaimsJws(token).getBody();
+        String subject = claims.getSubject();
 
-        String token = request.getHeader(AUTHORIZATION);
-
-        if (Objects.nonNull(token)) {
-            Claims claims = Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody();
-
-            String subject = claims.getSubject();
-            List<String> authorities = (List<String>) claims.get(ROLE_CLAIM);
-            if (Objects.nonNull(subject)) {
-                UserDetails userDetails = userDetailsService.loadUserByUsername(subject);
-                if (subject.equals(userDetails.getUsername()) && claims.getExpiration().before(new Date())){
-                    return Optional.of(new UsernamePasswordAuthenticationToken(
-                            subject,
-                            null,
-                            Objects.nonNull(authorities)?authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()) : Collections.emptyList()));
-                }
+        List<String> authorities = (List<String>) claims.get(ROLE_CLAIM);
+        if (Objects.nonNull(subject)) {
+            UserDetails userDetails = userDetailsService.loadUserByUsername(subject);
+            if (subject.equals(userDetails.getUsername()) && !claims.getExpiration().before(new Date())){
+                return Optional.of(new UsernamePasswordAuthenticationToken(
+                        subject,
+                        null,
+                        Objects.nonNull(authorities) ?
+                                authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()) :
+                                Collections.emptyList()));
             }
         }
 

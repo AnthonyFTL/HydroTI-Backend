@@ -8,6 +8,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface UserRepository extends JpaRepository<UserEntity, UUID> {
-    @Query(value = "select * from users u where u.username = :query or u.email = :query", nativeQuery = true)
+    @Query(value = "select * from users u where u.email = :query or u.id = :query", nativeQuery = true)
     Optional<UserEntity> findByEmailOrId(String query );
 }
