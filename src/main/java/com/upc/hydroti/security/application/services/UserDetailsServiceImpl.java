@@ -20,16 +20,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if (username.isBlank()) {
+    public UserDetails loadUserByUsername(String query) throws UsernameNotFoundException {
+        if (query.isBlank()) {
             throw new UsernameNotFoundException("Invalid user.");
         }
 
-        UserEntity userEntity = userRepository.findByUsername(username.trim()).orElseThrow(
-                () -> new UsernameNotFoundException(String.format("Given user (%s) not found.", username.trim())));
+        UserEntity userEntity = userRepository.findByEmailOrId(query.trim()).orElseThrow(
+                () -> new UsernameNotFoundException(String.format("Given user (%s) not found.", query.trim())));
 
         return User.builder()
-                .username(userEntity.getUsername())
+                .username(userEntity.getId().toString())
                 .password(userEntity.getPassword())
                 .authorities(emptyList())
                 .build();

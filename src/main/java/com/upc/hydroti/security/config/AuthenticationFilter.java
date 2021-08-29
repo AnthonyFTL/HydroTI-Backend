@@ -8,6 +8,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,9 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.upc.hydroti.security.config.Constants.*;
@@ -33,10 +32,9 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final ObjectMapper mapper;
 
     public AuthenticationFilter(AuthenticationManager authenticationManager, ObjectMapper mapper) {
-        super.setFilterProcessesUrl(TOKEN_URL);
-
         this.authenticationManager = authenticationManager;
         this.mapper = mapper;
+        super.setFilterProcessesUrl(TOKEN_URL);
     }
 
     @Override
@@ -49,7 +47,10 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         try (InputStream is = req.getInputStream()) {
             SignInRequest user = new ObjectMapper().readValue(is, SignInRequest.class);
 
-            return authenticationManager.authenticate(null);
+            return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                    user.getEmail(),
+                    user.getPassword(),
+                    Collections.emptyList()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
