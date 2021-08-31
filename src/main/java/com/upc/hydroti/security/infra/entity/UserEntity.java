@@ -1,11 +1,13 @@
 package com.upc.hydroti.security.infra.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
 @Data
+@AllArgsConstructor
 @Table(name = "users")
 public class UserEntity {
 
@@ -22,5 +24,6 @@ public class UserEntity {
 
     @Column(name = "role", nullable = false)
     private String role;
+
 
 }
