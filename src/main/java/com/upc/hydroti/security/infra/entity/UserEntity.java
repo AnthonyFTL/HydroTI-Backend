@@ -1,16 +1,19 @@
 package com.upc.hydroti.security.infra.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "users")
 public class UserEntity {
 
     @Id
-    @GeneratedValue
     @Column(name = "id", updatable = false, nullable = false)
     private String id;
 
@@ -23,4 +26,9 @@ public class UserEntity {
     @Column(name = "role", nullable = false)
     private String role;
 
+    @Column(name = "lastname", nullable = false)
+    private String lastname;
+
+    @Column(name = "name", nullable = false)
+    private String name;
 }
