@@ -34,6 +34,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final ObjectMapper mapper;
 
     public AuthenticationFilter(AuthenticationManager authenticationManager, ObjectMapper mapper) {
+        super.setAuthenticationFailureHandler(new JWTAuthenticationFailureHandler(mapper));
         this.authenticationManager = authenticationManager;
         this.mapper = mapper;
         super.setFilterProcessesUrl(TOKEN_URL);
