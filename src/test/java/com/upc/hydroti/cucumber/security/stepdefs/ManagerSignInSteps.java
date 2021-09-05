@@ -32,7 +32,7 @@ public class ManagerSignInSteps {
         String encodedPassword = passwordEncoder.encode(password);
 
         when(userRepository.findByEmailOrId(email))
-                .thenReturn(Optional.of(new UserEntity(id, email, encodedPassword, "ROLE_IRRIGATION_MANAGER")));
+                .thenReturn(Optional.of(new UserEntity(id, email, encodedPassword, "ROLE_IRRIGATION_MANAGER",null,null)));
     }
 
     @When("that the credentials are incorrect")

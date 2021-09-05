@@ -26,5 +26,9 @@ public class UserEntity {
     @Column(name = "role", nullable = false)
     private String role;
 
+    @Column(name = "lastname", nullable = false)
+    private String lastname;
 
+    @Column(name = "name", nullable = false)
+    private String name;
 }
