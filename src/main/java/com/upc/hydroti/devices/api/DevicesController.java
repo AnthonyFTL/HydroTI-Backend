@@ -24,6 +24,13 @@ public class DevicesController {
     @Autowired
     private DeviceService deviceService;
 
+    @GetMapping("/devices")
+    public List<DeviceResponse> getAllDevices(){
+        List<DeviceResponse> devices = deviceService.getAllDevices().stream()
+                .map(this::convertToResponse).collect(Collectors.toList());
+        return devices;
+    }
+
     @GetMapping("/parks/{parkId}/devices")
     public List<DeviceResponse> getAllDevicesByParkId( @PathVariable(name = "parkId") Long parkId){
         List<DeviceResponse> devices = deviceService.getAllDevicesByParkId(parkId).stream()
@@ -50,10 +57,9 @@ public class DevicesController {
         deviceService.updateDevice(parkId, deviceId, convertToEntity(request));
     }
 
-    @DeleteMapping("/parks/{parkId}/devices/{deviceId}")
-    public ResponseEntity<?> deleteDevice(@PathVariable(name = "parkId") Long parkId,
-                                           @PathVariable(name = "deviceId") Long deviceId) {
-        return deviceService.deleteDevice(parkId, deviceId);
+    @DeleteMapping("/devices/{deviceId}")
+    public ResponseEntity<?> deleteDevice(@PathVariable(name = "deviceId") Long deviceId) {
+        return deviceService.deleteDevice( deviceId);
     }
 
     private DeviceEntity convertToEntity(AddDeviceRequest request) {return mapper.map(request, DeviceEntity.class);}

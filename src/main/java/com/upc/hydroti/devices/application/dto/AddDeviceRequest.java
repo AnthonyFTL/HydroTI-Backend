@@ -6,18 +6,14 @@ import java.util.Date;
 public class AddDeviceRequest {
 
     private String name;
-
-    private Date lastUseDate;
-
-    private String state;
+    private String location;
 
     public AddDeviceRequest() {
     }
 
-    public AddDeviceRequest(String name, Date lastUseDate, String state) {
+    public AddDeviceRequest(String name, String location) {
         this.name = name;
-        this.lastUseDate = lastUseDate;
-        this.state = state;
+        this.location = location;
     }
 
     public String getName() {
@@ -28,19 +24,11 @@ public class AddDeviceRequest {
         this.name = name;
     }
 
-    public Date getLastUseDate() {
-        return lastUseDate;
+    public String getLocation() {
+        return location;
     }
 
-    public void setLastUseDate(Date lastUseDate) {
-        this.lastUseDate = lastUseDate;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

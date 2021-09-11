@@ -6,6 +6,8 @@ public class UpdateDeviceRequest {
 
     private String name;
 
+    private String location;
+
     private Date lastUseDate;
 
     private String state;
@@ -13,10 +15,11 @@ public class UpdateDeviceRequest {
     public UpdateDeviceRequest() {
     }
 
-    public UpdateDeviceRequest(String name, Date lastUseDate, String state) {
+    public UpdateDeviceRequest(String name, Date lastUseDate, String state, String location) {
         this.name = name;
         this.lastUseDate = lastUseDate;
         this.state = state;
+        this.location = location;
     }
 
     public String getName() {
@@ -41,5 +44,13 @@ public class UpdateDeviceRequest {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }
