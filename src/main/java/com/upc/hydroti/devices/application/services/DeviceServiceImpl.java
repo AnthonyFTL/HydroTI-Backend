@@ -18,6 +18,12 @@ public class DeviceServiceImpl implements DeviceService{
 
     @Autowired
     private DeviceRepository deviceRepository;
+
+    @Override
+    public List<DeviceEntity> getAllDevices() {
+        return deviceRepository.findAll();
+    }
+
     @Override
     public List<DeviceEntity> getAllDevicesByParkId(Long parkId) {
         return deviceRepository.findByParkId(parkId);
@@ -47,6 +53,7 @@ public class DeviceServiceImpl implements DeviceService{
 
         return deviceRepository.findById(deviceId).map(device -> {
             device.setName(deviceDetails.getName());
+            device.setState(deviceDetails.getState());
             return deviceRepository.save(device);
         }).orElseThrow(() -> new ResourceNotFoundException("Device", "Id", deviceId));
     }

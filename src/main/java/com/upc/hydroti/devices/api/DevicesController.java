@@ -24,6 +24,13 @@ public class DevicesController {
     @Autowired
     private DeviceService deviceService;
 
+    @GetMapping("/devices")
+    public List<DeviceResponse> getAllDevices(){
+        List<DeviceResponse> devices = deviceService.getAllDevices().stream()
+                .map(this::convertToResponse).collect(Collectors.toList());
+        return devices;
+    }
+
     @GetMapping("/parks/{parkId}/devices")
     public List<DeviceResponse> getAllDevicesByParkId( @PathVariable(name = "parkId") Long parkId){
         List<DeviceResponse> devices = deviceService.getAllDevicesByParkId(parkId).stream()

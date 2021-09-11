@@ -11,13 +11,16 @@ public class AddDeviceRequest {
 
     private String state;
 
+    private String location;
+
     public AddDeviceRequest() {
     }
 
-    public AddDeviceRequest(String name, Date lastUseDate, String state) {
+    public AddDeviceRequest(String name, Date lastUseDate, String state, String location) {
         this.name = name;
         this.lastUseDate = lastUseDate;
         this.state = state;
+        this.location = location;
     }
 
     public String getName() {
@@ -42,5 +45,13 @@ public class AddDeviceRequest {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

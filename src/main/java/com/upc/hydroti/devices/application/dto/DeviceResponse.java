@@ -13,5 +13,9 @@ public class DeviceResponse {
 
     private String name;
 
+    private String location;
+
+    private String state;
+
     private Date lastUseDate;
 }
