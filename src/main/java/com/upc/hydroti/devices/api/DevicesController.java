@@ -45,8 +45,8 @@ public class DevicesController {
     }
 
     @PostMapping("/devices")
-    public void addDevice(@Valid @RequestBody AddDeviceRequest request) {
-        deviceService.addDevice(request.getParkId(), convertToEntity(request));
+    public DeviceResponse addDevice(@Valid @RequestBody AddDeviceRequest request) {
+       return convertToResponse(deviceService.addDevice(request.getParkId(), convertToEntity(request)));
     }
 
     @PutMapping("/parks/{parkId}/devices/{deviceId}")
