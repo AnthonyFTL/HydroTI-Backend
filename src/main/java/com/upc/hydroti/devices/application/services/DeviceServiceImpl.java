@@ -3,6 +3,7 @@ package com.upc.hydroti.devices.application.services;
 import com.upc.hydroti.common.application.exception.ResourceNotFoundException;
 import com.upc.hydroti.devices.infra.entity.DeviceEntity;
 import com.upc.hydroti.devices.infra.repository.DeviceRepository;
+import com.upc.hydroti.parks.infra.entity.ParkEntity;
 import com.upc.hydroti.parks.infra.repository.ParkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -59,11 +60,10 @@ public class DeviceServiceImpl implements DeviceService{
     }
 
     @Override
-    public ResponseEntity<?> deleteDevice(Long parkId, Long deviceId) {
-        return deviceRepository.findByIdAndParkId(deviceId, parkId).map(device -> {
-            deviceRepository.delete(device);
-            return ResponseEntity.ok().build();
-        }).orElseThrow(() -> new ResourceNotFoundException(
-                "Device not found with Id " + deviceId + " and ParkId " + parkId));
+    public ResponseEntity<?> deleteDevice(Long deviceId) {
+        DeviceEntity device = deviceRepository.findById(deviceId)
+                .orElseThrow(() -> new ResourceNotFoundException("Device", "Id", deviceId));
+        deviceRepository.delete(device);
+        return null;
     }
 }

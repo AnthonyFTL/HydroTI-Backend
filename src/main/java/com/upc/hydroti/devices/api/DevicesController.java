@@ -57,10 +57,9 @@ public class DevicesController {
         deviceService.updateDevice(parkId, deviceId, convertToEntity(request));
     }
 
-    @DeleteMapping("/parks/{parkId}/devices/{deviceId}")
-    public ResponseEntity<?> deleteDevice(@PathVariable(name = "parkId") Long parkId,
-                                           @PathVariable(name = "deviceId") Long deviceId) {
-        return deviceService.deleteDevice(parkId, deviceId);
+    @DeleteMapping("/devices/{deviceId}")
+    public ResponseEntity<?> deleteDevice(@PathVariable(name = "deviceId") Long deviceId) {
+        return deviceService.deleteDevice( deviceId);
     }
 
     private DeviceEntity convertToEntity(AddDeviceRequest request) {return mapper.map(request, DeviceEntity.class);}

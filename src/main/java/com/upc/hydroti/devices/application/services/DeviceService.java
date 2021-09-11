@@ -11,5 +11,5 @@ public interface DeviceService {
     DeviceEntity getDeviceByIdAndParkId(Long parkId, Long deviceId);
     DeviceEntity addDevice(Long parkId, DeviceEntity device);
     DeviceEntity updateDevice(Long parkId, Long deviceId, DeviceEntity deviceDetails);
-    ResponseEntity<?> deleteDevice(Long parkId, Long deviceId);
+    ResponseEntity<?> deleteDevice(Long deviceId);
 }
