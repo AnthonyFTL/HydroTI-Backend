@@ -14,4 +14,6 @@ public class ParkResponse {
     private String address;
 
     private String district;
+
+    public String state;
 }
