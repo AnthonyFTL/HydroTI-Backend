@@ -18,4 +18,6 @@ public class DeviceResponse {
     private String state;
 
     private Date lastUseDate;
+
+    private Long parkId;
 }
