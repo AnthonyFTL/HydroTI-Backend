@@ -31,7 +31,6 @@ public class ParkEntity {
     private String district;
 
     @Column(name = "state", nullable = false)
-
     private String state = "INACTIVO";
 
 }
