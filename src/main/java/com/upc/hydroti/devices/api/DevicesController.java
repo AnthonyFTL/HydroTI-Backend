@@ -49,11 +49,10 @@ public class DevicesController {
        return convertToResponse(deviceService.addDevice(request.getParkId(), convertToEntity(request)));
     }
 
-    @PutMapping("/parks/{parkId}/devices/{deviceId}")
-    public void updateDevice(@PathVariable (name = "parkId") Long parkId,
-                             @PathVariable (name = "deviceId") Long deviceId,
+    @PutMapping("/devices/{deviceId}")
+    public DeviceResponse updateDevice(@PathVariable (name = "deviceId") Long deviceId,
                              @Valid @RequestBody AddDeviceRequest request) {
-        deviceService.updateDevice(parkId, deviceId, convertToEntity(request));
+        return convertToResponse(deviceService.updateDevice(request.getParkId(), deviceId, convertToEntity(request)));
     }
 
     @DeleteMapping("/devices/{deviceId}")
