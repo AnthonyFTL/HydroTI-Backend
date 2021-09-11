@@ -27,7 +27,7 @@ public class DeviceEntity {
     @Column(name = "location", nullable = false)
     private String location;
 
-    @Column(name = "state", nullable = false)
+    @Column(name = "state", nullable = true)
     private String state = "INACTIVO";
 
     @Column(name = "lastUseDate", nullable = true)
