@@ -44,10 +44,9 @@ public class DevicesController {
         return convertToResponse(deviceService.getDeviceByIdAndParkId(parkId, deviceId));
     }
 
-    @PostMapping("/parks/{parkId}/devices")
-    public void addDevice(@PathVariable(name = "parkId") Long parkId,
-                          @Valid @RequestBody AddDeviceRequest request) {
-        deviceService.addDevice(parkId, convertToEntity(request));
+    @PostMapping("/devices")
+    public void addDevice(@Valid @RequestBody AddDeviceRequest request) {
+        deviceService.addDevice(request.getParkId(), convertToEntity(request));
     }
 
     @PutMapping("/parks/{parkId}/devices/{deviceId}")

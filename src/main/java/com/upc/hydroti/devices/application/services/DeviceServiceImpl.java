@@ -42,6 +42,7 @@ public class DeviceServiceImpl implements DeviceService{
     public DeviceEntity addDevice(Long parkId, DeviceEntity device) {
         return parkRepository.findById(parkId).map(park -> {
             device.setPark(park);
+            device.setLocation(park.getName());
             return deviceRepository.save(device);
         }).orElseThrow(() -> new ResourceNotFoundException(
                 "Park", "Id", parkId));
