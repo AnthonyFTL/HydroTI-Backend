@@ -51,8 +51,8 @@ public class DevicesController {
 
     @PutMapping("/devices/{deviceId}")
     public DeviceResponse updateDevice(@PathVariable (name = "deviceId") Long deviceId,
-                             @Valid @RequestBody AddDeviceRequest request) {
-        return convertToResponse(deviceService.updateDevice(request.getParkId(), deviceId, convertToEntity(request)));
+                             @Valid @RequestBody UpdateDeviceRequest request) {
+        return convertToResponse(deviceService.updateDevice(request.getParkId(), deviceId, mapper.map(request,DeviceEntity.class)));
     }
 
     @DeleteMapping("/devices/{deviceId}")
