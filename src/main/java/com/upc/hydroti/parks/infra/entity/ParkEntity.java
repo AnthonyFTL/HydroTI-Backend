@@ -23,10 +23,24 @@ public class ParkEntity {
     @Column(name = "address", nullable = false)
     private String address;
 
+    @Column(name = "country", nullable = false)
+    private String country;
+
     @Column(name = "district", nullable = false)
     private String district;
+
+    @Column(name = "latitude", nullable = false)
+    private Double latitude;
+
+    @Column(name = "longitude", nullable = false)
+    private Double longitude;
+
+    @Column(name = "province", nullable = false)
+    private String province;
 
     @Column(name = "state", nullable = false)
     private String state = "INACTIVO";
 
+    @Column(name = "devices_connected", nullable = false)
+    private Integer devicesConnected = 0;
 }

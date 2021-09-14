@@ -5,13 +5,20 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ParkResponse {
-
-    private Long id;
-
+public class ParkDetailResponse {
     private String name;
 
+    private String address;
+
+    private String country;
+
     private String district;
+
+    private Double latitude;
+
+    private Double longitude;
+
+    private String province;
 
     private String state;
 

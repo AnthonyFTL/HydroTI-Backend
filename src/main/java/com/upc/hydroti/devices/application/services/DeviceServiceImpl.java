@@ -3,7 +3,6 @@ package com.upc.hydroti.devices.application.services;
 import com.upc.hydroti.common.application.exception.ResourceNotFoundException;
 import com.upc.hydroti.devices.infra.entity.DeviceEntity;
 import com.upc.hydroti.devices.infra.repository.DeviceRepository;
-import com.upc.hydroti.parks.infra.entity.ParkEntity;
 import com.upc.hydroti.parks.infra.repository.ParkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

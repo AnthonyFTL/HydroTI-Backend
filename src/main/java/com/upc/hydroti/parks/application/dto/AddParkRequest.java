@@ -1,44 +1,26 @@
 package com.upc.hydroti.parks.application.dto;
 
+import lombok.Getter;
+import lombok.Setter;
 
+
+
+@Getter
+@Setter
 public class AddParkRequest {
 
     private String name;
 
     private String address;
 
+    private String country;
+
     private String district;
 
-    public AddParkRequest() {
-    }
+    private Double latitude;
 
-    public AddParkRequest(String name, String address, String district) {
-        this.name = name;
-        this.address = address;
-        this.district = district;
-    }
+    private Double longitude;
 
-    public String getName() {
-        return name;
-    }
+    private String province;
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getDistrict() {
-        return district;
-    }
-
-    public void setDistrict(String district) {
-        this.district = district;
-    }
 }

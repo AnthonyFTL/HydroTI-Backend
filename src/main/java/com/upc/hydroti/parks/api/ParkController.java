@@ -1,5 +1,6 @@
 package com.upc.hydroti.parks.api;
 
+import com.upc.hydroti.parks.application.dto.ParkDetailResponse;
 import com.upc.hydroti.parks.application.dto.ParkResponse;
 import com.upc.hydroti.parks.infra.entity.ParkEntity;
 import org.modelmapper.ModelMapper;
@@ -25,26 +26,25 @@ public class ParkController {
 
     @GetMapping()
     public List<ParkResponse> getAllParks() {
-        List<ParkResponse> parks = parkService.getAllParks().stream()
+        return parkService.getAllParks().stream()
                 .map(this::convertToResponse).collect(Collectors.toList());
-        return parks;
     }
 
     @GetMapping("/{parkId}")
-    public ParkResponse getParkById(@PathVariable(name = "parkId") Long id) {
-        return convertToResponse(parkService.getParkById(id));
+    public ParkDetailResponse getParkById(@PathVariable(name = "parkId") Long id) {
+        return mapper.map(parkService.getParkById(id), ParkDetailResponse.class);
     }
 
     @PostMapping()
-    public void addPark(@RequestBody AddParkRequest request) {
+    public ParkResponse addPark(@RequestBody AddParkRequest request) {
         ParkEntity park = convertToEntity(request);
-        parkService.addPark(park);
+       return convertToResponse(parkService.addPark(park));
     }
 
     @PutMapping("/{parkId}")
-    public void updatePark(@PathVariable(name = "parkId") Long id,@Valid @RequestBody AddParkRequest request) {
+    public ParkDetailResponse updatePark(@PathVariable(name = "parkId") Long id, @Valid @RequestBody AddParkRequest request) {
         ParkEntity park = convertToEntity(request);
-        parkService.updatePark(id, park);
+        return mapper.map(parkService.updatePark(id, park), ParkDetailResponse.class);
     }
 
     @DeleteMapping("/{parkId}")
