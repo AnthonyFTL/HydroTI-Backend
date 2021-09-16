@@ -2,6 +2,7 @@ package com.upc.hydroti.parks.api;
 
 import com.upc.hydroti.parks.application.dto.ParkDetailResponse;
 import com.upc.hydroti.parks.application.dto.ParkResponse;
+import com.upc.hydroti.parks.application.dto.UpdateParkRequest;
 import com.upc.hydroti.parks.infra.entity.ParkEntity;
 import org.modelmapper.ModelMapper;
 import com.upc.hydroti.parks.application.dto.AddParkRequest;
@@ -42,8 +43,8 @@ public class ParkController {
     }
 
     @PutMapping("/{parkId}")
-    public ParkDetailResponse updatePark(@PathVariable(name = "parkId") Long id, @Valid @RequestBody AddParkRequest request) {
-        ParkEntity park = convertToEntity(request);
+    public ParkDetailResponse updatePark(@PathVariable(name = "parkId") Long id, @Valid @RequestBody UpdateParkRequest request) {
+        ParkEntity park = convertUpdateRequestToEntity(request);
         return mapper.map(parkService.updatePark(id, park), ParkDetailResponse.class);
     }
 
@@ -54,6 +55,8 @@ public class ParkController {
 
 
     private ParkEntity convertToEntity(AddParkRequest request) { return mapper.map(request, ParkEntity.class);}
+
+    private ParkEntity convertUpdateRequestToEntity(UpdateParkRequest request) { return mapper.map(request, ParkEntity.class);}
 
     private ParkResponse convertToResponse(ParkEntity entity) { return mapper.map(entity, ParkResponse.class);}
 }
