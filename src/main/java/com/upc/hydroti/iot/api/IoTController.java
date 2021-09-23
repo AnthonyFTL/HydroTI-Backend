@@ -22,7 +22,7 @@ public class IoTController {
     @Scheduled(fixedRate = 1000)
     public void getAllLastValues() {
         LastValuesResponse lastValuesResponse = dataService.getLastValues();
-        messagingTemplate.convertAndSend("iot/last-values", lastValuesResponse);
+        messagingTemplate.convertAndSend("/iot/last-values", lastValuesResponse);
     }
 
 }
