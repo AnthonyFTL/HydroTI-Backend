@@ -38,7 +38,7 @@ public class DataService {
 
     public LastValuesResponse getLastValues() {
         IoTResponse humidity = getIOTResponse("humidity");
-        IoTResponse lights = getIOTResponse("lights");
+        IoTResponse lights = getIOTResponse("light");
         IoTResponse moisture = getIOTResponse("moisture");
         IoTResponse temperature = getIOTResponse("temperature");
 
