@@ -5,7 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PumpResponse {
-
+public class ValueWrapper {
     private String value;
+
+    public ValueWrapper(String value) {
+        this.value = value;
+    }
 }

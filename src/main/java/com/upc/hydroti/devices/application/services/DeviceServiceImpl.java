@@ -67,7 +67,7 @@ public class DeviceServiceImpl implements DeviceService{
     @Override
     public void updateLastUsedDate() {
         DeviceEntity device = deviceRepository.findAll().get(0);
-        device.setLastUseDate(new Date());
+        device.setLastUseDate(Date.from(java.time.ZonedDateTime.now().toInstant()));
         deviceRepository.save(device);
     }
 }

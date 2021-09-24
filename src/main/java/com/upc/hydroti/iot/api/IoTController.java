@@ -12,13 +12,14 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 
 @EnableScheduling
-@Controller
-@RestController("/iot")
+@RestController
+@RequestMapping("/iot")
 public class IoTController {
 
     private final DataService dataService;
@@ -39,10 +40,13 @@ public class IoTController {
 
     @PostMapping("/pump")
     public ResponseEntity<PumpResponse> switchPumpValue() {
-        PumpResponse response = dataService.switchPump();
-        deviceService.updateLastUsedDate();
+        PumpResponse response = switchPump();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
+    private PumpResponse switchPump() {
+        PumpResponse response = dataService.switchPump();
+        deviceService.updateLastUsedDate();
+        return response;
+    }
 
 }

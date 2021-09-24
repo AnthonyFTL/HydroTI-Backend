@@ -1,8 +1,6 @@
 package com.upc.hydroti.iot.application.services;
 
-import com.upc.hydroti.iot.application.dto.IoTResponse;
-import com.upc.hydroti.iot.application.dto.LastValuesResponse;
-import com.upc.hydroti.iot.application.dto.PumpResponse;
+import com.upc.hydroti.iot.application.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -54,7 +52,11 @@ public class DataService {
 
     public PumpResponse switchPump() {
         String url = dataEndpoint + "pump/data";
-        return restTemplate.exchange(url, HttpMethod.POST, getRequestEntity(), PumpResponse.class).getBody();
+
+        PumpResponseLastValue pump = restTemplate.exchange(dataEndpoint + "pump", HttpMethod.GET, getRequestEntity(), PumpResponseLastValue.class).getBody();
+        String value = pump.getLastValue().equals("ON") ? "OFF" : "ON";
+
+        return restTemplate.exchange(url, HttpMethod.POST, postRequestEntity(value), PumpResponse.class).getBody();
     }
 
     private HttpEntity getRequestEntity() {
@@ -62,4 +64,11 @@ public class DataService {
         headers.set(apiKeyHeader, apiKey);
         return new HttpEntity(headers);
     }
+    private HttpEntity postRequestEntity(String value) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(apiKeyHeader, apiKey);
+        return new HttpEntity(new PostBody(value), headers);
+    }
+
+
 }
