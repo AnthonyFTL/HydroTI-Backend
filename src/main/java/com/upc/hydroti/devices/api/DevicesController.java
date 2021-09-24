@@ -60,6 +60,7 @@ public class DevicesController {
         return deviceService.deleteDevice( deviceId);
     }
 
+
     private DeviceEntity convertToEntity(AddDeviceRequest request) {return mapper.map(request, DeviceEntity.class);}
 
     private DeviceResponse convertToResponse(DeviceEntity entity) {return mapper.map(entity, DeviceResponse.class);}

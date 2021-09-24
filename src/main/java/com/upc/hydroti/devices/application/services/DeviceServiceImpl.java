@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -51,7 +52,6 @@ public class DeviceServiceImpl implements DeviceService{
     public DeviceEntity updateDevice(Long deviceId, DeviceEntity deviceDetails) {
         return deviceRepository.findById(deviceId).map(device -> {
             device.setName(deviceDetails.getName());
-            device.setLastUseDate(deviceDetails.getLastUseDate());
             return deviceRepository.save(device);
         }).orElseThrow(() -> new ResourceNotFoundException("Device", "Id", deviceId));
     }
@@ -62,5 +62,12 @@ public class DeviceServiceImpl implements DeviceService{
                 .orElseThrow(() -> new ResourceNotFoundException("Device", "Id", deviceId));
         deviceRepository.delete(device);
         return null;
+    }
+
+    @Override
+    public void updateLastUsedDate() {
+        DeviceEntity device = deviceRepository.findAll().get(0);
+        device.setLastUseDate(new Date());
+        deviceRepository.save(device);
     }
 }

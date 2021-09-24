@@ -40,7 +40,9 @@ public class IoTController {
     @PostMapping("/pump")
     public ResponseEntity<PumpResponse> switchPumpValue() {
         PumpResponse response = dataService.switchPump();
+        deviceService.updateLastUsedDate();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
 
 }
