@@ -10,6 +10,6 @@ public interface DeviceService {
     List<DeviceEntity> getAllDevicesByParkId(Long parkId);
     DeviceEntity getDeviceByIdAndParkId(Long parkId, Long deviceId);
     DeviceEntity addDevice(Long parkId, DeviceEntity device);
-    DeviceEntity updateDevice(Long parkId, Long deviceId, DeviceEntity deviceDetails);
+    DeviceEntity updateDevice( Long deviceId, DeviceEntity deviceDetails);
     ResponseEntity<?> deleteDevice(Long deviceId);
 }

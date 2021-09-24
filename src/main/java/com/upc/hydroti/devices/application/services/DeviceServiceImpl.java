@@ -48,16 +48,10 @@ public class DeviceServiceImpl implements DeviceService{
     }
 
     @Override
-    public DeviceEntity updateDevice(Long parkId, Long deviceId, DeviceEntity deviceDetails) {
-
+    public DeviceEntity updateDevice(Long deviceId, DeviceEntity deviceDetails) {
         return deviceRepository.findById(deviceId).map(device -> {
             device.setName(deviceDetails.getName());
-            device.setState(deviceDetails.getState());
-            parkRepository.findById(parkId).map(park -> {
-                device.setPark(park);
-                device.setLocation(park.getName());
-                return deviceRepository.save(device);
-            });
+            device.setLastUseDate(deviceDetails.getLastUseDate());
             return deviceRepository.save(device);
         }).orElseThrow(() -> new ResourceNotFoundException("Device", "Id", deviceId));
     }

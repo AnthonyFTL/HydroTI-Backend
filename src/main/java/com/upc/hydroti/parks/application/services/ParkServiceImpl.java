@@ -26,6 +26,11 @@ public class ParkServiceImpl implements ParkService {
                 .orElseThrow(() -> new ResourceNotFoundException("Park", "Id", id));
         park.setName(parkRequest.getName());
         park.setAddress(parkRequest.getAddress());
+        park.setCountry(parkRequest.getCountry());
+        park.setDistrict(parkRequest.getDistrict());
+        park.setLatitude(parkRequest.getLatitude());
+        park.setLongitude(parkRequest.getLongitude());
+        park.setProvince(parkRequest.getProvince());
         return parkRepository.save(park);
     }
 
