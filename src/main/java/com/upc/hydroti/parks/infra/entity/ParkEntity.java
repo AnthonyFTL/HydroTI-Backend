@@ -43,4 +43,7 @@ public class ParkEntity {
 
     @Column(name = "devices_connected", nullable = false)
     private Integer devicesConnected = 0;
+
+    @Column(name="manual_irrigation", nullable = false)
+    private Boolean manualIrrigation = true;
 }

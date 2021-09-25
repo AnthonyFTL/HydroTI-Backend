@@ -1,12 +1,14 @@
 package com.upc.hydroti.parks.application.services;
 
 import com.upc.hydroti.common.application.exception.ResourceNotFoundException;
+import com.upc.hydroti.devices.infra.entity.DeviceEntity;
 import com.upc.hydroti.parks.infra.entity.ParkEntity;
 import com.upc.hydroti.parks.infra.repository.ParkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -49,6 +51,13 @@ public class ParkServiceImpl implements ParkService {
     public ParkEntity getParkById(Long id) {
         return parkRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Park", "Id", id));
+    }
+
+    @Override
+    public void switchIrrigationType() {
+        ParkEntity park = parkRepository.findAll().get(0);
+        park.setManualIrrigation(!park.getManualIrrigation());
+        parkRepository.save(park);
     }
 
 }

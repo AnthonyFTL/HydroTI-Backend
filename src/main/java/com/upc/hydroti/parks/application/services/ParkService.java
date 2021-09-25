@@ -13,4 +13,5 @@ public interface ParkService {
     ResponseEntity<?> deletePark(Long id);
     List<ParkEntity> getAllParks();
     ParkEntity getParkById(Long id);
+    void switchIrrigationType();
 }

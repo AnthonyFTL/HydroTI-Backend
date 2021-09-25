@@ -15,5 +15,6 @@ public class LastValuesResponse {
     private Double temperature;
     private Double waterConsumption;
     private String pump;
+    private Boolean manualIrrigation;
 
 }

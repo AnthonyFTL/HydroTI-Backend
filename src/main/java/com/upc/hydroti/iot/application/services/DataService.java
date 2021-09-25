@@ -1,6 +1,8 @@
 package com.upc.hydroti.iot.application.services;
 
 import com.upc.hydroti.iot.application.dto.*;
+import com.upc.hydroti.parks.application.services.ParkService;
+import com.upc.hydroti.parks.infra.entity.ParkEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -13,6 +15,8 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class DataService {
+
+    private ParkService parkService;
     private final RestTemplate restTemplate;
 
     private final String dataEndpoint;
@@ -42,9 +46,9 @@ public class DataService {
         IoTResponse temperature = getIOTResponse("temperature");
         IoTResponse waterConsumption = getIOTResponse("water-consumption");
         PumpResponseLastValue pumpResponse = restTemplate.exchange(dataEndpoint + "pump", HttpMethod.GET, getRequestEntity(), PumpResponseLastValue.class).getBody();
-
+        ParkEntity park = parkService.getAllParks().get(0);
         return new LastValuesResponse(humidity.getLastValue(), lights.getLastValue(), moisture.getLastValue(),
-                temperature.getLastValue(), waterConsumption.getLastValue(), pumpResponse.getLastValue());
+                temperature.getLastValue(), waterConsumption.getLastValue(), pumpResponse.getLastValue(), park.getManualIrrigation());
     }
 
     private IoTResponse getIOTResponse(String key) {
