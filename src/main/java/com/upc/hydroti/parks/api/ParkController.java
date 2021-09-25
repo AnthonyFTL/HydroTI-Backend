@@ -26,9 +26,9 @@ public class ParkController {
     private ParkService parkService;
 
     @GetMapping()
-    public List<ParkResponse> getAllParks() {
+    public List<ParkDetailResponse> getAllParks() {
         return parkService.getAllParks().stream()
-                .map(this::convertToResponse).collect(Collectors.toList());
+                .map(this::convertToParkDetailResponse).collect(Collectors.toList());
     }
 
     @GetMapping("/{parkId}")
@@ -59,4 +59,6 @@ public class ParkController {
     private ParkEntity convertUpdateRequestToEntity(UpdateParkRequest request) { return mapper.map(request, ParkEntity.class);}
 
     private ParkResponse convertToResponse(ParkEntity entity) { return mapper.map(entity, ParkResponse.class);}
+
+    private ParkDetailResponse convertToParkDetailResponse(ParkEntity entity) { return mapper.map(entity, ParkDetailResponse.class);}
 }
