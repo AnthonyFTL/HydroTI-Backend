@@ -35,6 +35,13 @@ public class IoTController {
     @Scheduled(fixedRate = 1000)
     public void getAllLastValues() {
         LastValuesResponse lastValuesResponse = dataService.getLastValues();
+        if (lastValuesResponse.getPump().equals("ON")) {
+            if (lastValuesResponse.getHumidity() < 10 ||
+                    lastValuesResponse.getMoisture() > 95 ||
+                    lastValuesResponse.getTemperature() > 78 ||
+                    lastValuesResponse.getLights() > 25)
+                switchPump();
+        }
         messagingTemplate.convertAndSend("/iot/last-values", lastValuesResponse);
     }
 
@@ -43,6 +50,7 @@ public class IoTController {
         PumpResponse response = switchPump();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
     private PumpResponse switchPump() {
         PumpResponse response = dataService.switchPump();
         deviceService.updateLastUsedDate();

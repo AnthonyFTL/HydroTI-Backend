@@ -14,5 +14,6 @@ public class LastValuesResponse {
     private Double moisture;
     private Double temperature;
     private Double waterConsumption;
+    private String pump;
 
 }

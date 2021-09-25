@@ -41,9 +41,10 @@ public class DataService {
         IoTResponse moisture = getIOTResponse("moisture");
         IoTResponse temperature = getIOTResponse("temperature");
         IoTResponse waterConsumption = getIOTResponse("water-consumption");
+        PumpResponseLastValue pumpResponse = restTemplate.exchange(dataEndpoint + "pump", HttpMethod.GET, getRequestEntity(), PumpResponseLastValue.class).getBody();
 
         return new LastValuesResponse(humidity.getLastValue(), lights.getLastValue(), moisture.getLastValue(),
-                temperature.getLastValue(), waterConsumption.getLastValue());
+                temperature.getLastValue(), waterConsumption.getLastValue(), pumpResponse.getLastValue());
     }
 
     private IoTResponse getIOTResponse(String key) {
