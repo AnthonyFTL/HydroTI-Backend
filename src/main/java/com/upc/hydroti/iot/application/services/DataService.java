@@ -40,9 +40,10 @@ public class DataService {
         IoTResponse lights = getIOTResponse("light");
         IoTResponse moisture = getIOTResponse("moisture");
         IoTResponse temperature = getIOTResponse("temperature");
+        IoTResponse waterConsumption = getIOTResponse("water-consumption");
 
         return new LastValuesResponse(humidity.getLastValue(), lights.getLastValue(), moisture.getLastValue(),
-                temperature.getLastValue());
+                temperature.getLastValue(), waterConsumption.getLastValue());
     }
 
     private IoTResponse getIOTResponse(String key) {

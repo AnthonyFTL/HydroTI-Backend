@@ -13,5 +13,6 @@ public class LastValuesResponse {
     private Double lights;
     private Double moisture;
     private Double temperature;
+    private Double waterConsumption;
 
 }
