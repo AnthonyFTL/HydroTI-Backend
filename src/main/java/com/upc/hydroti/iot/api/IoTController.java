@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @EnableScheduling
 @RestController
-@RequestMapping("/iot")
+@RequestMapping("/api/iot")
 public class IoTController {
 
     private final DataService dataService;
