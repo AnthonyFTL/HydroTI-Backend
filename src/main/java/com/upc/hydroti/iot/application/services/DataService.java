@@ -27,10 +27,13 @@ public class DataService {
     @Autowired
     public DataService(
             RestTemplate restTemplate,
+            ParkService parkService,
 
             @Value("${app.data.endpoint}") String dataEndpoint,
             @Value("${app.data.api-key-header}") String apiKeyHeader,
             @Value("${app.data.api-key}") String apiKey) {
+
+        this.parkService = parkService;
 
         this.restTemplate = restTemplate;
         this.dataEndpoint = dataEndpoint;
