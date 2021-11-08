@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.core.sym.Name;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -31,4 +33,25 @@ public class UserEntity {
 
     @Column(name = "name", nullable = false)
     private String name;
+
+    public UserEntity(String Id, String Email, String Password, String Role, String LastName, String Name) {
+        id = Id;
+        email = Email;
+        password = Password;
+        role = Role;
+        lastname = LastName;
+        name = Name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getRole() {
+        return role;
+    }
 }

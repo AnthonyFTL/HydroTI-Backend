@@ -9,4 +9,8 @@ import lombok.Setter;
 public class PumpResponseLastValue {
     @JsonProperty("last_value")
     private String lastValue;
+
+    public String getLastValue() {
+        return lastValue;
+    }
 }

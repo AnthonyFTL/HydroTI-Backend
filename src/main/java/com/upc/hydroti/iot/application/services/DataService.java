@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-
 @Service
 public class DataService {
 
@@ -25,13 +24,10 @@ public class DataService {
     private final String apiKey;
 
     @Autowired
-    public DataService(
-            RestTemplate restTemplate,
-            ParkService parkService,
+    public DataService(RestTemplate restTemplate, ParkService parkService,
 
             @Value("${app.data.endpoint}") String dataEndpoint,
-            @Value("${app.data.api-key-header}") String apiKeyHeader,
-            @Value("${app.data.api-key}") String apiKey) {
+            @Value("${app.data.api-key-header}") String apiKeyHeader, @Value("${app.data.api-key}") String apiKey) {
 
         this.parkService = parkService;
 
@@ -48,10 +44,13 @@ public class DataService {
         IoTResponse moisture = getIOTResponse("moisture");
         IoTResponse temperature = getIOTResponse("temperature");
         IoTResponse waterConsumption = getIOTResponse("water-consumption");
-        PumpResponseLastValue pumpResponse = restTemplate.exchange(dataEndpoint + "pump", HttpMethod.GET, getRequestEntity(), PumpResponseLastValue.class).getBody();
+        PumpResponseLastValue pumpResponse = restTemplate
+                .exchange(dataEndpoint + "pump", HttpMethod.GET, getRequestEntity(), PumpResponseLastValue.class)
+                .getBody();
         ParkEntity park = parkService.getAllParks().get(0);
         return new LastValuesResponse(humidity.getLastValue(), lights.getLastValue(), moisture.getLastValue(),
-                temperature.getLastValue(), waterConsumption.getLastValue(), pumpResponse.getLastValue(), park.getManualIrrigation());
+                temperature.getLastValue(), waterConsumption.getLastValue(), pumpResponse.getLastValue(),
+                park.getManualIrrigation());
     }
 
     private IoTResponse getIOTResponse(String key) {
@@ -62,7 +61,9 @@ public class DataService {
     public PumpResponse switchPump() {
         String url = dataEndpoint + "pump/data";
 
-        PumpResponseLastValue pump = restTemplate.exchange(dataEndpoint + "pump", HttpMethod.GET, getRequestEntity(), PumpResponseLastValue.class).getBody();
+        PumpResponseLastValue pump = restTemplate
+                .exchange(dataEndpoint + "pump", HttpMethod.GET, getRequestEntity(), PumpResponseLastValue.class)
+                .getBody();
         String value = pump.getLastValue().equals("ON") ? "OFF" : "ON";
 
         return restTemplate.exchange(url, HttpMethod.POST, postRequestEntity(value), PumpResponse.class).getBody();
@@ -73,11 +74,11 @@ public class DataService {
         headers.set(apiKeyHeader, apiKey);
         return new HttpEntity(headers);
     }
+
     private HttpEntity postRequestEntity(String value) {
         HttpHeaders headers = new HttpHeaders();
         headers.set(apiKeyHeader, apiKey);
         return new HttpEntity(new PostBody(value), headers);
     }
-
 
 }

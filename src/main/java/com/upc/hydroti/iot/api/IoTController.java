@@ -24,7 +24,8 @@ public class IoTController {
     private final ParkService parkService;
     private final SimpMessagingTemplate messagingTemplate;
 
-    public IoTController(DataService dataService, DeviceService deviceService, ParkService parkService, SimpMessagingTemplate messagingTemplate) {
+    public IoTController(DataService dataService, DeviceService deviceService, ParkService parkService,
+            SimpMessagingTemplate messagingTemplate) {
         this.dataService = dataService;
         this.deviceService = deviceService;
         this.parkService = parkService;
@@ -35,10 +36,8 @@ public class IoTController {
     public void getAllLastValues() {
         LastValuesResponse lastValuesResponse = dataService.getLastValues();
         if (lastValuesResponse.getPump().equals("ON") && lastValuesResponse.getManualIrrigation()) {
-            if (lastValuesResponse.getHumidity() < 10 ||
-                    lastValuesResponse.getMoisture() > 95 ||
-                    lastValuesResponse.getTemperature() > 78 ||
-                    lastValuesResponse.getLights() > 25)
+            if (lastValuesResponse.getHumidity() < 10 || lastValuesResponse.getMoisture() > 95
+                    || lastValuesResponse.getTemperature() > 78 || lastValuesResponse.getLights() > 25)
                 switchPump();
         }
         messagingTemplate.convertAndSend("/iot/last-values", lastValuesResponse);

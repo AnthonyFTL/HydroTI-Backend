@@ -30,10 +30,10 @@ public class UserController {
     @PostMapping()
     public void addUser(@RequestBody AddUserRequest request) {
         String encodedPassword = passwordEncoder.encode(request.getPassword());
-//        UserEntity new ObjectMapper().readValue(request, UserEntity.class);
-
-        userService.addUser(new UserEntity(randomUUID().toString(), request.getEmail(), encodedPassword,
-                request.getRole(), request.getLastname(), request.getName()));
+        // UserEntity new ObjectMapper().readValue(request, UserEntity.class);
+        UserEntity user = new UserEntity(randomUUID().toString(), request.getEmail(), encodedPassword,
+                request.getRole(), request.getLastname(), request.getName());
+        userService.addUser(user);
     }
 
 }

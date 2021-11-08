@@ -44,6 +44,83 @@ public class ParkEntity {
     @Column(name = "devices_connected", nullable = false)
     private Integer devicesConnected = 0;
 
-    @Column(name="manual_irrigation", nullable = false)
+    @Column(name = "manual_irrigation", nullable = false)
     private Boolean manualIrrigation = true;
+
+    public void Updatepark(ParkEntity park) {
+        this.name = park.name;
+        this.address = park.address;
+        this.country = park.country;
+        this.district = park.district;
+        this.latitude = park.latitude;
+        this.longitude = park.longitude;
+        this.province = park.province;
+        this.state = park.state;
+        this.devicesConnected = park.devicesConnected;
+        this.manualIrrigation = park.manualIrrigation;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public Boolean getManualIrrigation() {
+        return manualIrrigation;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public void setManualIrrigation(Boolean manualIrrigation) {
+        this.manualIrrigation = manualIrrigation;
+    }
 }
