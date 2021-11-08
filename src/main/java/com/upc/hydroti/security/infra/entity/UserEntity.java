@@ -10,8 +10,6 @@ import com.fasterxml.jackson.core.sym.Name;
 
 @Entity
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "users")
 public class UserEntity {
 
