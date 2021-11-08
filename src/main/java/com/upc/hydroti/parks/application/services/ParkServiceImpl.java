@@ -45,12 +45,13 @@ public class ParkServiceImpl implements ParkService {
     }
 
     @Override
-    public List<ParkEntity> getAllParks() { return parkRepository.findAll(); }
+    public List<ParkEntity> getAllParks() {
+        return parkRepository.findAll();
+    }
 
     @Override
     public ParkEntity getParkById(Long id) {
-        return parkRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Park", "Id", id));
+        return parkRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Park", "Id", id));
     }
 
     @Override

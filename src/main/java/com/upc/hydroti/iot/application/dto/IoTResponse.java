@@ -11,4 +11,7 @@ public class IoTResponse {
     @JsonProperty("last_value")
     private Double lastValue;
 
+    public Double getLastValue() {
+        return lastValue;
+    }
 }

@@ -31,11 +31,31 @@ public class DeviceEntity {
     private String state = "INACTIVO";
 
     @Column(name = "lastUseDate", nullable = true)
-    private Date lastUseDate ;
+    private Date lastUseDate;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "park_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private ParkEntity park;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setPark(ParkEntity park) {
+        this.park.Updatepark(park);
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setLastUseDate(Date lastUseDate) {
+        this.lastUseDate = lastUseDate;
+    }
 }
